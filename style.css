@@ -1,24 +1,51 @@
-body {
-    background-color: blanchedalmond;
+.backdrop {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    opacity: 0.5;
+    z-index: -1;;
+}
+/*************************************************************************
+Header styling
+*************************************************************************/
+.header {
+    object-fit: cover;
+    width: 100%;
+    background-color: #262C3A;
 }
 
-.navbar div {
-    width: 100%;
+.header img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+
+/*************************************************************************
+Navbar styling
+*************************************************************************/
+
+.navbar {
+    overflow:hidden;
     background-color: darkslategrey;
+    margin: 2px;
 }
 
 .navbar ul {
     list-style-type: none;
+    width: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    position: fixed;
-    background-color: inherit;
+    background-color: darkslategrey;
 }
 
 .navbar li {
-    outline: firebrick;
-    outline-style: inset;
+    outline: limegreen;
+    outline-style: outset;
     outline-width: 5px;
     float: left;
 }
@@ -29,11 +56,61 @@ body {
 
 .navbar a {
     display: block;
-    padding: 10px;
+    padding: 10px 14px;
     color: white;
     font-size: x-large;
 }
 
 .navbar a:hover {
     background-color: lightslategray;
+}
+
+/*************************************************************************
+Content styling
+*************************************************************************/
+
+.content {
+    margin: 20px;
+    font-size: large;
+}
+
+.content h1 {
+    text-decoration: underline;
+}
+
+.content table {
+    border-collapse: collapse;
+}
+
+.content td, th {
+    border: 2px solid black;
+    padding: 10px 14px;
+    border-radius: 3px;
+}
+
+.content a {
+    text-decoration: none;
+    display: inline-block;
+    color: darkslategrey;
+}
+
+.content a:hover {
+    text-decoration: underline;
+    color: lime;
+}
+
+.content p {
+    padding: 4px;
+    border: 2px solid lightslategrey;
+    border-radius: 5px;
+    background: rgba(119, 136, 153, 0.3)
+}
+
+/*************************************************************************
+Extra styling
+*************************************************************************/
+
+.icon {
+    width: 40px;
+    height: 40px;
 }
