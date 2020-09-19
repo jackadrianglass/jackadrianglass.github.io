@@ -1,0 +1,39 @@
+body {
+    background-color: blanchedalmond;
+}
+
+.navbar div {
+    width: 100%;
+    background-color: darkslategrey;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: fixed;
+    background-color: inherit;
+}
+
+.navbar li {
+    outline: firebrick;
+    outline-style: inset;
+    outline-width: 5px;
+    float: left;
+}
+
+.navbar li:first-child {
+    border-left: none;
+}
+
+.navbar a {
+    display: block;
+    padding: 10px;
+    color: white;
+    font-size: x-large;
+}
+
+.navbar a:hover {
+    background-color: lightslategray;
+}
