@@ -1,2 +1,2 @@
 # website
-Personal static webpage for gitub page
+url: https://jackadrianglass.github.io/
