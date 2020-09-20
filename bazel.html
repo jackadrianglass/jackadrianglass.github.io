@@ -22,7 +22,63 @@
     <div class="content">
         <h1>Bazel</h1>
         <p>
-            
+            According to the JetBrains 2020 c++ ecosystem 
+            <a href="https://www.jetbrains.com/lp/devecosystem-2020/cpp/">Survey</a>, Bazel is used
+            by 3% of the survey responders as their build system growing in popularity by 1 whole
+            percent (it's a lot I know). Bazel is a Blaze derivative build system developed by
+            Google for their internal builds.
         </p>
+        <p>
+            Bazel's claims to fame are as follows
+        </p>
+        <ul>
+            <li>Fast and correct builds</li>
+            <li>Simple and easy to read config files</li>
+            <li>Incredible multi language support</li>
+        </ul>
+        <p>
+            A basic Bazel configuration file is as follows
+        </p>
+        <p class="code">cc_binary(
+            name = "hello-world",
+            srcs = ["hello-world.cc"],
+        )</p>
+        <p>            
+            A more complicated Bazel configuration file from the 
+            <a href="https://github.com/google/googletest/blob/master/BUILD.bazel">googlemock</a> project
+            looks like this
+        </p>
+        <p class="code">//from https://github.com/google/googletest/blob/master/BUILD.bazel
+            ...
+            cc_library(
+            name = "gtest_main",
+            srcs = ["googlemock/src/gmock_main.cc"],
+            features = select({
+                ":windows": ["windows_export_all_symbols"],
+                "//conditions:default": [],
+            }),
+            deps = [":gtest"],
+        )
+        
+        # The following rules build samples of how to use gTest.
+        cc_library(
+            name = "gtest_sample_lib",
+            srcs = [
+                "googletest/samples/sample1.cc",
+                "googletest/samples/sample2.cc",
+                "googletest/samples/sample4.cc",
+            ],
+            hdrs = [
+                "googletest/samples/prime_tables.h",
+                "googletest/samples/sample1.h",
+                "googletest/samples/sample2.h",
+                "googletest/samples/sample3-inl.h",
+                "googletest/samples/sample4.h",
+            ],
+            features = select({
+                ":windows": ["windows_export_all_symbols"],
+                "//conditions:default": [],
+            }),
+        )</p>
     </div>
 </body>

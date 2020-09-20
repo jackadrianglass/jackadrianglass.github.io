@@ -22,7 +22,81 @@
     <div class="content">
         <h1>boost.build</h1>
         <p>
-            
+            According to the JetBrains 2020 c++ ecosystem 
+            <a href="https://www.jetbrains.com/lp/devecosystem-2020/cpp/">Survey</a>, boost.build is
+            used by 2% of the responders dropping a percent in popularity from the previous year.
+            The project was created to build the Boost libraries which heavily influenced the new
+            C++ standards. 
+        </p>
+        <p>boost.build claim to fame is as follows</p>
+        <ul>
+            <li>Portable builds for multiple platforms and toolsets</li>
+            <li>Variant builds (The part I like most about it)</li>
+            <li>Simple, high level description of a project</li>
+        </ul>
+        <p>A simple boost.build configuration file is as follows</p>
+        <p class="code">exe example : example.cc ;</p>
+        <p>A more complex example from boost.build's own 
+            <a href="https://github.com/boostorg/build/blob/develop/src/build-system.jam">build config</a>
+        </p>
+        <p class="code">//from https://github.com/boostorg/build/blob/develop/src/build-system.jam
+            ...
+            local rule load-configuration-files
+            {
+                # Flag indicating that site configuration should not be loaded.
+                local ignore-site-config =
+                    [ MATCH ^(--ignore-site-config)$ : $(.argv) ] ;
+                local ignore-user-config ;
+                local ignore-project-config ;
+
+                initialize-config-module test-config ;
+                local test-config = [ handle-config-option test-config ] ;
+                if $(test-config)
+                {
+                    local where = [ load-config test-config : $(test-config:BS) :
+                        $(test-config:D) ] ;
+                    if $(where)
+                    {
+                        if $(.debug-config)
+                        {
+                            ECHO "notice: Regular site and user configuration files will" ;
+                            ECHO "notice: be ignored due to the test configuration being"
+                                "loaded." ;
+                        }
+                        ignore-site-config = true ;
+                        ignore-user-config = true ;
+                    }
+                }
+
+                initialize-config-module all-config ;
+                local all-config = [ handle-config-option config ] ;
+                if $(all-config)
+                {
+                    load-config all-config : $(all-config:D=) : $(all-config:D) : required ;
+                    if $(.debug-config)
+                    {
+                        ECHO "notice: Regular configuration files will be ignored due" ;
+                        ECHO "notice: to the global configuration being loaded." ;
+                    }
+                }
+                if $(all-config)-is-defined
+                {
+                    if $(.debug-config) && ! $(all-config)
+                    {
+                        ECHO "notice: Configuration file loading explicitly disabled." ;
+                    }
+                    ignore-site-config = true ;
+                    ignore-user-config = true ;
+                    ignore-project-config = true ;
+                }
+
+                local user-path = [ os.home-directories ] [ os.environ BOOST_BUILD_PATH ] ;
+                local site-path = /etc $(user-path) ;
+                if [ os.name ] in NT CYGWIN
+                {
+                    site-path = [ modules.peek : SystemRoot ] $(user-path) ;
+                }
+            ...
         </p>
     </div>
 </body>

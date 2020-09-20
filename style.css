@@ -88,6 +88,10 @@ Content styling
     border-radius: 3px;
 }
 
+.content th {
+    background: rgba(119, 136, 153, 0.4);
+}
+
 .content a {
     text-decoration: none;
     display: inline-block;
@@ -101,9 +105,14 @@ Content styling
 
 .content p {
     padding: 4px;
-    border: 2px solid lightslategrey;
+}
+
+.code {
+    font-family: monospace;
+    border: 3px solid darkslategrey;
     border-radius: 5px;
-    background: rgba(119, 136, 153, 0.3)
+    white-space: pre-line;
+    background: rgba(119, 136, 153, 0.4)
 }
 
 /*************************************************************************
