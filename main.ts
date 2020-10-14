@@ -60,9 +60,11 @@ class Tile {
         switch(this.state){
             case TileState.Flagged:
                 this.state = TileState.Hidden;
+                numMines++;
                 break;
             case TileState.Hidden:
                 this.state = TileState.Flagged;
+                numMines--;
                 break;
             case TileState.Revealed:
                 //Do nothing
@@ -119,14 +121,17 @@ class Game{
     public constructor() {
     }
 
-    public init(rows: number, cols: number, numMines: number) {
+    public init(rows: number, cols: number, mines: number) {
         this._rows = rows;
         this._cols = cols;
-        this._numMines = numMines;
+        this._numMines = mines;
         this._field = create2dArray(this._rows, this._cols);
         this._isPopulated = false;
         this._gameState = GameState.Running;
         this._tilesRevealed = 0;
+
+        numMines = mines;
+        document.querySelector(".mineCount").innerHTML = String(mines);
     }
 
     public reset() {
@@ -245,6 +250,7 @@ class Game{
 
 function button_callback(state: Game, rows: number, cols: number, mines: number){
     state.init(rows, cols, mines);
+
     render(state);
 }
 
@@ -378,10 +384,12 @@ function render(state: Game){
 
 }
 
+let numMines = 0;
 function flag(state: Game, idx:number) {
     const row = Math.floor(idx / state.cols());
     const col = Math.floor(idx % state.cols());
     state.flag(row, col);
+    document.querySelector(".mineCount").innerHTML = String(numMines);
     render(state);
 }
 

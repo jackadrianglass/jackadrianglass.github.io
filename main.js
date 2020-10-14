@@ -48,9 +48,11 @@ var Tile = /** @class */ (function () {
         switch (this.state) {
             case TileState.Flagged:
                 this.state = TileState.Hidden;
+                numMines++;
                 break;
             case TileState.Hidden:
                 this.state = TileState.Flagged;
+                numMines--;
                 break;
             case TileState.Revealed:
                 //Do nothing
@@ -92,14 +94,16 @@ var Game = /** @class */ (function () {
     Game.prototype.cols = function () { return this._cols; };
     Game.prototype.isPopulated = function () { return this._isPopulated; };
     Game.prototype.gameState = function () { return this._gameState; };
-    Game.prototype.init = function (rows, cols, numMines) {
+    Game.prototype.init = function (rows, cols, mines) {
         this._rows = rows;
         this._cols = cols;
-        this._numMines = numMines;
+        this._numMines = mines;
         this._field = create2dArray(this._rows, this._cols);
         this._isPopulated = false;
         this._gameState = GameState.Running;
         this._tilesRevealed = 0;
+        numMines = mines;
+        document.querySelector(".mineCount").innerHTML = String(mines);
     };
     Game.prototype.reset = function () {
         this.init(this._rows, this._cols, this._numMines);
@@ -338,10 +342,12 @@ function render(state) {
         _loop_1(i);
     }
 }
+var numMines = 0;
 function flag(state, idx) {
     var row = Math.floor(idx / state.cols());
     var col = Math.floor(idx % state.cols());
     state.flag(row, col);
+    document.querySelector(".mineCount").innerHTML = String(numMines);
     render(state);
 }
 var pressTimer;
