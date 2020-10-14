@@ -353,7 +353,7 @@ function prepare_dom(state) {
         card.className = "card";
         card.style.display = "none";
         card.setAttribute("data-cardIdx", String(i));
-        card.addEventListener("mousedown", function (event) {
+        var mouseDown = function (event) {
             if (event.button === 2) {
                 flag(state, i);
             }
@@ -362,11 +362,17 @@ function prepare_dom(state) {
                     flag(state, i);
                 }, 1000);
             }
-        });
-        card.addEventListener("mouseup", function () {
+            event.preventDefault();
+        };
+        var mouseUp = function (event) {
             clearTimeout(pressTimer);
             card_click_callback(state, card, i);
-        });
+            event.preventDefault();
+        };
+        card.addEventListener("touchstart", mouseDown);
+        card.addEventListener("touchend", mouseUp);
+        card.addEventListener("mousedown", mouseDown);
+        card.addEventListener("mouseup", mouseUp);
         card.addEventListener("contextmenu", function (event) {
             event.preventDefault();
         }, false);

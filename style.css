@@ -79,7 +79,7 @@ body {
     margin: auto;
     grid-template-columns: repeat(9, 1fr);
     border-radius: 10px;
-    width: calc(70vw);
+    width: calc(70vh);
 }
 
 .grid > div::before {

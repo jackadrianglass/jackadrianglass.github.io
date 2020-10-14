@@ -395,7 +395,7 @@ function prepare_dom(state:Game){
         card.style.display = "none";
         card.setAttribute("data-cardIdx", String(i));
 
-        card.addEventListener("mousedown", event => {
+        const mouseDown = (event) => {
             if(event.button === 2){
                 flag(state, i);
             } else {
@@ -403,11 +403,18 @@ function prepare_dom(state:Game){
                     flag(state, i);
                 }, 1000);
             }
-        });
-        card.addEventListener("mouseup", () => {
+            event.preventDefault();
+        };
+        const mouseUp = (event) => {
             clearTimeout(pressTimer);
             card_click_callback(state, card, i);
-        })
+            event.preventDefault();
+        };
+
+        card.addEventListener("touchstart", mouseDown);
+        card.addEventListener("touchend", mouseUp);
+        card.addEventListener("mousedown", mouseDown);
+        card.addEventListener("mouseup", mouseUp);
 
         card.addEventListener("contextmenu", event => {
             event.preventDefault();
