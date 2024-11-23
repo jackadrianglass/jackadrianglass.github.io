@@ -12,6 +12,7 @@ import Random
 
 -- MODEL --
 
+stepCounts : Float -> Float -> Float -> ( Int, Int )
 stepCounts stepSize width height =
     let
         stepCountX = floor <| width / stepSize
