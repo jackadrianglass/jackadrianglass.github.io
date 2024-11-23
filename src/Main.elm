@@ -1,13 +1,16 @@
 module Main exposing (main)
 
 import Browser
+import Color as C
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font as Font
 import FeatherIcons as Icons
 import Html exposing (Html)
 import Html.Attributes exposing (style)
+import Random
 import Theme
+import TiledLines
 import Util
 
 
@@ -30,12 +33,21 @@ main =
 
 
 type alias Model =
-    {}
+    { drawingModel : TiledLines.Model }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( {}, Cmd.none )
+    let
+        testSettings : TiledLines.Settings
+        testSettings =
+            { width = 600, height = 400, stepSize = 20, strokeColor = Theme.theme.gold, backgroundColor = Theme.theme.base }
+
+        model : Model
+        model =
+            { drawingModel = { settings = testSettings, drawingDirections = Nothing } }
+    in
+    ( model, Random.generate Ready <| TiledLines.generateDirections testSettings )
 
 
 
@@ -59,32 +71,32 @@ h1 attributes content =
     el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
 
 
-splashScreen : Attribute msg
-splashScreen =
+splashScreen : Model -> Attribute msg
+splashScreen model =
     -- todo: Make this the animation rather than an image
     -- some ideas could be any of the simple canvas examples from the coding train. Could have it cycle on a timer or on page load
-    behindContent <| el [ height fill, width fill ] <| image [ height fill, centerX ] { src = "https://cdn-icons-png.flaticon.com/512/6482/6482627.png", description = "" }
+    behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
 
 
-view _ =
+view model =
     layout
         -- todo: This is where you put your style options
         -- see what else you can do with this
         -- todo: Add a switch from light mode to dark mode
-        [ Font.color Theme.theme.text
+        [ Font.color <| fromRgb <| C.toRgba Theme.theme.text
         , Font.size 18
         , Font.family
             [ Font.typeface "Open Sans"
             , Font.sansSerif
             ]
-        , Background.color Theme.theme.base
+        , Background.color <| fromRgb <| C.toRgba Theme.theme.base
         ]
     <|
         column [ width fill, spacing 30 ]
-            [ el [ width fill, htmlAttribute <| style "min-height" "100vh", splashScreen ] <|
+            [ el [ width fill, htmlAttribute <| style "min-height" "100vh", splashScreen model ] <|
                 column [ centerX, centerY, padding 5, spacing 5 ]
-                    [ h1 [ centerX, Font.color Theme.theme.pine ] "Banana"
-                    , h1 [ centerX, Font.color Theme.theme.pine ] "Split"
+                    [ h1 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "Banana"
+                    , h1 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "Split"
                     , row [ centerX ]
                         [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
                         , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
@@ -103,9 +115,18 @@ view _ =
 
 
 type Msg
-    = Loading
+    = Ready (List Int)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update _ model =
-    ( model, Cmd.none )
+update msg model =
+    case msg of
+        Ready directions ->
+            let
+                old =
+                    model.drawingModel
+
+                newDrawing =
+                    { old | drawingDirections = Just directions }
+            in
+            ( { model | drawingModel = newDrawing }, Cmd.none )

@@ -1,4 +1,12 @@
-module TiledLines exposing (main)
+module TiledLines exposing
+    ( Model
+    , Msg
+    , Settings
+    , generateDirections
+    , main
+    , update
+    , view
+    )
 
 import Browser
 import Canvas exposing (..)
@@ -25,32 +33,31 @@ stepCounts stepSize width height =
     ( stepCountX, stepCountY )
 
 
-type DrawingState
-    = Loading
-    | Ready (List Int)
-
-
 type alias Settings =
     { width : Float, height : Float, stepSize : Float, strokeColor : Color.Color, backgroundColor : Color.Color }
 
 
 type alias Model =
-    { settings : Settings, state : DrawingState }
+    { settings : Settings, drawingDirections : Maybe (List Int) }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
     let
-        settings =
+        testSettings : Settings
+        testSettings =
             { width = 600, height = 400, stepSize = 20, strokeColor = Color.white, backgroundColor = Color.purple }
+    in
+    ( { settings = testSettings, drawingDirections = Nothing }, Random.generate Direction <| generateDirections testSettings )
 
+
+generateDirections : Settings -> Random.Generator (List Int)
+generateDirections settings =
+    let
         ( stepCountX, stepCountY ) =
             stepCounts settings.stepSize settings.width settings.height
-
-        randomList =
-            Random.list (stepCountX * stepCountY) (Random.int 0 1)
     in
-    ( { settings = settings, state = Loading }, Random.generate Direction randomList )
+    Random.list (stepCountX * stepCountY) (Random.int 0 1)
 
 
 
@@ -82,15 +89,14 @@ lineStep loc length direction =
     line start end
 
 
-view : Model -> Html Msg
 view model =
     let
         canvasElements =
-            case model.state of
-                Loading ->
+            case model.drawingDirections of
+                Nothing ->
                     []
 
-                Ready directions ->
+                Just directions ->
                     drawing model.settings directions
     in
     Canvas.toHtml ( round model.settings.width, round model.settings.height ) [] canvasElements
@@ -127,7 +133,6 @@ drawing settings directions =
 
         shapeSettings =
             [ stroke settings.strokeColor, fill settings.backgroundColor, lineWidth 2 ]
-
     in
     [ shapes shapeSettings (steps ++ [ rect ( 0, 0 ) settings.width settings.height ]) ]
 
@@ -144,7 +149,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Direction val ->
-            ( { model | state = Ready val }, Cmd.none )
+            ( { model | drawingDirections = Just val }, Cmd.none )
 
 
 main : Program () Model Msg

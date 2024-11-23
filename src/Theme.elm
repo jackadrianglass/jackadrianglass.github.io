@@ -1,6 +1,6 @@
 module Theme exposing (..)
 
-import Element exposing (rgb255)
+import Color exposing (rgb255)
 
 -- todo: Get the light version as well https://rosepinetheme.com/palette/ingredients/
 -- todo: Probably want to get these colors into a common Pallette type
