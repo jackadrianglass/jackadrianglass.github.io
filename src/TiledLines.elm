@@ -12,13 +12,17 @@ import Random
 
 -- MODEL --
 
+
 stepCounts : Float -> Float -> Float -> ( Int, Int )
 stepCounts stepSize width height =
     let
-        stepCountX = floor <| width / stepSize
-        stepCountY = floor <| height / stepSize
+        stepCountX =
+            floor <| width / stepSize
+
+        stepCountY =
+            floor <| height / stepSize
     in
-        (stepCountX, stepCountY)
+    ( stepCountX, stepCountY )
 
 
 type DrawingState
@@ -27,7 +31,7 @@ type DrawingState
 
 
 type alias Settings =
-    { width : Float, height : Float, stepSize : Float }
+    { width : Float, height : Float, stepSize : Float, strokeColor : Color.Color, backgroundColor : Color.Color }
 
 
 type alias Model =
@@ -37,10 +41,16 @@ type alias Model =
 init : () -> ( Model, Cmd Msg )
 init _ =
     let
-        settings = { width = 600, height = 400, stepSize = 20 }
-        (stepCountX, stepCountY) = stepCounts settings.stepSize settings.width settings.height
+        settings =
+            { width = 600, height = 400, stepSize = 20, strokeColor = Color.white, backgroundColor = Color.purple }
+
+        ( stepCountX, stepCountY ) =
+            stepCounts settings.stepSize settings.width settings.height
+
+        randomList =
+            Random.list (stepCountX * stepCountY) (Random.int 0 1)
     in
-    ( { settings = settings, state = Loading }, Random.generate Direction (Random.list (stepCountX * stepCountY) (Random.int 0 1)) )
+    ( { settings = settings, state = Loading }, Random.generate Direction randomList )
 
 
 
@@ -89,8 +99,11 @@ view model =
 drawing : Settings -> List Int -> List Renderable
 drawing settings directions =
     let
-        stepSize = floor <| settings.stepSize
-        (stepCountX, stepCountY) = stepCounts settings.stepSize settings.width settings.height
+        stepSize =
+            floor <| settings.stepSize
+
+        ( stepCountX, stepCountY ) =
+            stepCounts settings.stepSize settings.width settings.height
 
         pos =
             \idx jdx -> ( toFloat <| idx * stepSize, toFloat <| jdx * stepSize )
@@ -103,6 +116,7 @@ drawing settings directions =
 
                     Nothing ->
                         0
+
         step =
             \idx jdx ->
                 lineStep (pos idx jdx) (toFloat stepSize) (dir idx jdx)
@@ -110,8 +124,12 @@ drawing settings directions =
         steps =
             List.range 0 stepCountX
                 |> List.concatMap (\idx -> List.range 0 stepCountY |> List.map (\jdx -> step idx jdx))
+
+        shapeSettings =
+            [ stroke settings.strokeColor, fill settings.backgroundColor, lineWidth 2 ]
+
     in
-    [ shapes [ stroke Color.black, lineWidth 2 ] (steps ++ [ rect ( 0, 0 ) settings.width settings.height ]) ]
+    [ shapes shapeSettings (steps ++ [ rect ( 0, 0 ) settings.width settings.height ]) ]
 
 
 
