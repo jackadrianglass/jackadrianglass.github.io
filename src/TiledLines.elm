@@ -12,6 +12,13 @@ import Random
 
 -- MODEL --
 
+stepCounts stepSize width height =
+    let
+        stepCountX = floor <| width / stepSize
+        stepCountY = floor <| height / stepSize
+    in
+        (stepCountX, stepCountY)
+
 
 type DrawingState
     = Loading
@@ -19,7 +26,7 @@ type DrawingState
 
 
 type alias Settings =
-    { width : Float, height : Float, stepCount : Int }
+    { width : Float, height : Float, stepSize : Float }
 
 
 type alias Model =
@@ -28,7 +35,11 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { settings = { width = 340, height = 340, stepCount = 20 }, state = Loading }, Random.generate Direction (Random.list (20 * 20) (Random.int 0 1)) )
+    let
+        settings = { width = 600, height = 400, stepSize = 20 }
+        (stepCountX, stepCountY) = stepCounts settings.stepSize settings.width settings.height
+    in
+    ( { settings = settings, state = Loading }, Random.generate Direction (Random.list (stepCountX * stepCountY) (Random.int 0 1)) )
 
 
 
@@ -77,38 +88,32 @@ view model =
 drawing : Settings -> List Int -> List Renderable
 drawing settings directions =
     let
-        stepSize =
-            round <| settings.width / toFloat settings.stepCount
+        stepSize = floor <| settings.stepSize
+        (stepCountX, stepCountY) = stepCounts settings.stepSize settings.width settings.height
 
         pos =
             \idx jdx -> ( toFloat <| idx * stepSize, toFloat <| jdx * stepSize )
 
         dir =
             \idx jdx ->
-                case List.head (List.drop (idx * settings.stepCount + jdx) directions) of
+                case List.head (List.drop (idx + jdx * stepCountX) directions) of
                     Just val ->
                         val
 
                     Nothing ->
                         0
-
         step =
             \idx jdx ->
                 lineStep (pos idx jdx) (toFloat stepSize) (dir idx jdx)
 
         steps =
-            List.range 0 settings.stepCount
-                |> List.concatMap (\idx -> List.range 0 settings.stepCount |> List.map (\jdx -> step idx jdx))
+            List.range 0 stepCountX
+                |> List.concatMap (\idx -> List.range 0 stepCountY |> List.map (\jdx -> step idx jdx))
     in
     [ shapes [ stroke Color.black, lineWidth 2 ] (steps ++ [ rect ( 0, 0 ) settings.width settings.height ]) ]
 
 
 
--- 340 / 20 = 17
--- 17 steps of size 20
--- Divide up the canvas into step sizes
--- For each step
---  - draw a line that either goes one step down and left or one step down and right
 -- UPDATE --
 
 
