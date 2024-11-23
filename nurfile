@@ -1,0 +1,4 @@
+
+def "nur make" [] {
+	elm make src/TiledLines.elm --output public/app.js --debug
+}
