@@ -8,7 +8,7 @@ import Element.Background as Background
 import Element.Font as Font
 import FeatherIcons as Icons
 import Html exposing (Html)
-import Html.Attributes exposing (style)
+import Html.Attributes as Attr
 import Random
 import Theme
 import TiledLines
@@ -78,6 +78,7 @@ linkTreeIcon icon url =
         }
 
 
+-- todo: Honestly, I'm tinkering enough with things that require CSS that I should just actually go learn CSS
 h1 : List (Attr () msg) -> String -> Element msg
 h1 attributes content =
     el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
@@ -92,7 +93,7 @@ splashScreen : Model -> Element msg
 splashScreen model =
     el
         [ width fill
-        , htmlAttribute <| style "min-height" "100vh"
+        , htmlAttribute <| Attr.style "min-height" "100vh"
         , behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
         ]
     <|
@@ -108,6 +109,13 @@ splashScreen model =
                 , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
                 ]
             ]
+
+
+about =
+    column [ width fill, centerX ]
+        [ h1 [ centerX, Font.center ] "About"
+        , image [width <| px 150] { src = "ferris.svg", description = "placeholder for an actual thing" }
+        ]
 
 
 view : Model -> Html msg
@@ -127,6 +135,7 @@ view model =
     <|
         column [ width fill, spacing 30 ]
             [ splashScreen model
+            , about
             , h1 [ centerX, Font.center ] "more icecream please!"
             , textColumn [ centerX ] <| List.repeat 10 (paragraph [] [ text Util.fillerParagraph ])
             ]

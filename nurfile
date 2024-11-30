@@ -2,3 +2,8 @@
 def "nur make" [] {
 	elm make src/Main.elm --output public/app.js --debug
 }
+
+def "nur make-release" [] {
+	# There's probably an actual release flag
+	elm make src/Main.elm --output public/app.js
+}
