@@ -43,8 +43,8 @@ type alias Flags =
 init : Flags -> ( Model, Cmd Msg )
 init flags =
     let
-        testSettings : TiledLines.Settings
-        testSettings =
+        drawingSettings : TiledLines.Settings
+        drawingSettings =
             { width = flags.windowWidth - flags.scrollBarWidth
             , height = flags.windowHeight
             , stepSize = 20
@@ -54,11 +54,11 @@ init flags =
 
         model : Model
         model =
-            { drawingModel = { settings = testSettings, drawingDirections = Nothing }
+            { drawingModel = { settings = drawingSettings, drawingDirections = Nothing }
             , scrollBarWidth = flags.scrollBarWidth
             }
     in
-    ( model, Random.generate Ready <| TiledLines.generateDirections testSettings )
+    ( model, Random.generate Ready <| TiledLines.generateDirections drawingSettings )
 
 
 
