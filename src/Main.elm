@@ -18,7 +18,7 @@ import Util
 -- Main --
 
 
-main : Program () Model Msg
+main : Program Flags Model Msg
 main =
     Browser.element
         { init = init
@@ -33,19 +33,31 @@ main =
 
 
 type alias Model =
-    { drawingModel : TiledLines.Model }
+    { drawingModel : TiledLines.Model, scrollBarWidth : Float }
 
 
-init : () -> ( Model, Cmd Msg )
-init _ =
+type alias Flags =
+    { windowWidth : Float, windowHeight : Float, scrollBarWidth : Float }
+
+
+init : Flags -> ( Model, Cmd Msg )
+init flags =
     let
         testSettings : TiledLines.Settings
         testSettings =
-            { width = 600, height = 400, stepSize = 20, strokeColor = Theme.theme.gold, backgroundColor = Theme.theme.base }
+            -- todo: Probably not a great idea to hard code the width of the scroll bar
+            { width = flags.windowWidth - flags.scrollBarWidth
+            , height = flags.windowHeight
+            , stepSize = 20
+            , strokeColor = Theme.theme.muted
+            , backgroundColor = Theme.theme.base
+            }
 
         model : Model
         model =
-            { drawingModel = { settings = testSettings, drawingDirections = Nothing } }
+            { drawingModel = { settings = testSettings, drawingDirections = Nothing }
+            , scrollBarWidth = flags.scrollBarWidth
+            }
     in
     ( model, Random.generate Ready <| TiledLines.generateDirections testSettings )
 
@@ -78,6 +90,7 @@ splashScreen model =
     behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
 
 
+view : Model -> Html msg
 view model =
     layout
         -- todo: This is where you put your style options
