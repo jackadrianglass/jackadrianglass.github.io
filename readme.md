@@ -26,9 +26,9 @@ The idea is to largely base the website off of one that I found
 
 # Creative Coding
 
-- [ ] Tiled Lines
+- [x] Tiled Lines
     - [x] Have it sizeable to a different width than height
     - [x] Inject a color scheme into it
-    - [ ] Make it the splash screen of the main page
-    - [ ] Handle resize events (which probably just means redraw it?)
+    - [x] Make it the splash screen of the main page
+    - [x] Handle resize events (which probably just means redraw it?)
 - [ ] Find some other creative coding ideas to work on

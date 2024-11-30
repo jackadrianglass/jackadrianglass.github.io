@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Events as Events
 import Color as C
 import Element exposing (..)
 import Element.Background as Background
@@ -24,7 +25,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = \_ -> Events.onResize (\width height -> WindowResized { width = toFloat width, height = toFloat height })
         }
 
 
@@ -128,6 +129,7 @@ view model =
 
 type Msg
     = Ready (List Int)
+    | WindowResized { width : Float, height : Float }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -142,3 +144,22 @@ update msg model =
                     { old | drawingDirections = Just directions }
             in
             ( { model | drawingModel = newDrawing }, Cmd.none )
+
+        WindowResized dimensions ->
+            let
+                oldSettings =
+                    model.drawingModel.settings
+
+                newSettings =
+                    { oldSettings | width = dimensions.width - model.scrollBarWidth, height = dimensions.height }
+
+                oldDrawingModel =
+                    model.drawingModel
+
+                newDrawingModel =
+                    { oldDrawingModel | settings = newSettings, drawingDirections = Nothing }
+
+                newModel =
+                    { model | drawingModel = newDrawingModel }
+            in
+            ( newModel, Random.generate Ready <| TiledLines.generateDirections newSettings )
