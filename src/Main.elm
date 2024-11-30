@@ -88,9 +88,26 @@ h2 attributes content =
     el (attributes ++ [ Font.size 40, Font.heavy ]) (text content)
 
 
-splashScreen : Model -> Attribute msg
+splashScreen : Model -> Element msg
 splashScreen model =
-    behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
+    el
+        [ width fill
+        , htmlAttribute <| style "min-height" "100vh"
+        , behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
+        ]
+    <|
+        column [ centerX, centerY, padding 5, spacing 5 ]
+            [ h1 [ centerX ] "Jack Glass"
+            , h2 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "A Curious Software Engineer"
+            , row [ centerX ]
+                [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
+                , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
+
+                -- todo: do something different with the email
+                -- maybe have it copy to clipboard?
+                , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
+                ]
+            ]
 
 
 view : Model -> Html msg
@@ -99,6 +116,8 @@ view model =
         -- todo: Add a switch from light mode to dark mode
         [ Font.color <| fromRgb <| C.toRgba Theme.theme.text
         , Font.size 18
+
+        -- todo: Tinker with the font
         , Font.family
             [ Font.typeface "Open Sans"
             , Font.sansSerif
@@ -107,19 +126,7 @@ view model =
         ]
     <|
         column [ width fill, spacing 30 ]
-            [ el [ width fill, htmlAttribute <| style "min-height" "100vh", splashScreen model ] <|
-                column [ centerX, centerY, padding 5, spacing 5 ]
-                    [ h1 [ centerX ] "Jack Glass"
-                    , h2 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "A Curious Software Engineer"
-                    , row [ centerX ]
-                        [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
-                        , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
-
-                        -- todo: do something different with the email
-                        -- maybe have it copy to clipboard?
-                        , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
-                        ]
-                    ]
+            [ splashScreen model
             , h1 [ centerX, Font.center ] "more icecream please!"
             , textColumn [ centerX ] <| List.repeat 10 (paragraph [] [ text Util.fillerParagraph ])
             ]
