@@ -49,7 +49,7 @@ init flags =
             { width = flags.windowWidth - flags.scrollBarWidth
             , height = flags.windowHeight
             , stepSize = 20
-            , strokeColor = Theme.theme.muted
+            , strokeColor = Theme.theme.highlightHigh
             , backgroundColor = Theme.theme.base
             }
 
@@ -83,18 +83,19 @@ h1 attributes content =
     el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
 
 
+h2 : List (Attr () msg) -> String -> Element msg
+h2 attributes content =
+    el (attributes ++ [ Font.size 40, Font.heavy ]) (text content)
+
+
 splashScreen : Model -> Attribute msg
 splashScreen model =
-    -- todo: Make this the animation rather than an image
-    -- some ideas could be any of the simple canvas examples from the coding train. Could have it cycle on a timer or on page load
     behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
 
 
 view : Model -> Html msg
 view model =
     layout
-        -- todo: This is where you put your style options
-        -- see what else you can do with this
         -- todo: Add a switch from light mode to dark mode
         [ Font.color <| fromRgb <| C.toRgba Theme.theme.text
         , Font.size 18
@@ -108,13 +109,14 @@ view model =
         column [ width fill, spacing 30 ]
             [ el [ width fill, htmlAttribute <| style "min-height" "100vh", splashScreen model ] <|
                 column [ centerX, centerY, padding 5, spacing 5 ]
-                    [ h1 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "Banana"
-                    , h1 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "Split"
+                    [ h1 [ centerX ] "Jack Glass"
+                    , h2 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "A Curious Software Engineer"
                     , row [ centerX ]
                         [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
                         , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
 
                         -- todo: do something different with the email
+                        -- maybe have it copy to clipboard?
                         , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
                         ]
                     ]

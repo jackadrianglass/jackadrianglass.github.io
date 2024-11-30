@@ -4,7 +4,7 @@ The idea is to largely base the website off of one that I found
 
 # Main Page
 
-- [ ] Creative Coding Splash Screen
+- [x] Creative Coding Splash Screen
 - [ ] Link Tree
 - [ ] Brief Section
     - [ ] Head Shot
