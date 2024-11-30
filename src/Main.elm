@@ -45,7 +45,6 @@ init flags =
     let
         testSettings : TiledLines.Settings
         testSettings =
-            -- todo: Probably not a great idea to hard code the width of the scroll bar
             { width = flags.windowWidth - flags.scrollBarWidth
             , height = flags.windowHeight
             , stepSize = 20
