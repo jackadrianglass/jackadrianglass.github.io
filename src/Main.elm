@@ -25,7 +25,15 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Events.onResize (\width height -> WindowResized { width = toFloat width, height = toFloat height })
+        , subscriptions =
+            \_ ->
+                Events.onResize
+                    (\width height ->
+                        WindowResized
+                            { width = toFloat width
+                            , height = toFloat height
+                            }
+                    )
         }
 
 
@@ -78,7 +86,10 @@ linkTreeIcon icon url =
         }
 
 
+
 -- todo: Honestly, I'm tinkering enough with things that require CSS that I should just actually go learn CSS
+
+
 h1 : List (Attr () msg) -> String -> Element msg
 h1 attributes content =
     el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
@@ -112,9 +123,12 @@ splashScreen model =
 
 
 about =
-    column [ width fill, centerX ]
-        [ h1 [ centerX, Font.center ] "About"
-        , image [width <| px 150] { src = "ferris.svg", description = "placeholder for an actual thing" }
+    Html.div [ Attr.class "card" ]
+        [ Html.img [ Attr.class "card-img", Attr.src "headshot.jpeg" ] [ Html.text "Jack's Beautiful Face" ]
+        , Html.div [ Attr.class "card-content" ]
+            [ Html.h1 [] [ Html.text "About" ]
+            , Html.p [] [Html.text Util.fillerParagraph ]
+            ]
         ]
 
 
@@ -135,7 +149,8 @@ view model =
     <|
         column [ width fill, spacing 30 ]
             [ splashScreen model
-            , about
+            , html ( Html.hr [] [] )
+            , html about
             , h1 [ centerX, Font.center ] "more icecream please!"
             , textColumn [ centerX ] <| List.repeat 10 (paragraph [] [ text Util.fillerParagraph ])
             ]
