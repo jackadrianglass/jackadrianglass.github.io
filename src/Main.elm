@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Browser.Events as Events
 import Color as C
+import Color.Convert exposing (colorToCssRgb)
 import Element exposing (..)
 import Element.Background as Background
 import Element.Font as Font
@@ -74,52 +75,59 @@ init flags =
 -- View --
 
 
-linkTreeIcon : Icons.Icon -> String -> Element msg
+linkTreeIcon : Icons.Icon -> String -> Html.Html msg
 linkTreeIcon icon url =
-    link []
-        { url = url
-        , label =
-            icon
-                |> Icons.withSize 30
-                |> Icons.toHtml []
-                |> html
-        }
-
-
-
--- todo: Honestly, I'm tinkering enough with things that require CSS that I should just actually go learn CSS
-
-
-h1 : List (Attr () msg) -> String -> Element msg
-h1 attributes content =
-    el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
-
-
-h2 : List (Attr () msg) -> String -> Element msg
-h2 attributes content =
-    el (attributes ++ [ Font.size 40, Font.heavy ]) (text content)
-
-
-splashScreen : Model -> Element msg
-splashScreen model =
-    el
-        [ width fill
-        , htmlAttribute <| Attr.style "min-height" "100vh"
-        , behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
+    Html.a [ Attr.href url ]
+        [ icon
+            |> Icons.withSize 2
+            |> Icons.withSizeUnit "em"
+            |> Icons.toHtml [ Attr.style "color" (colorToCssRgb Theme.theme.rose) ]
         ]
-    <|
-        column [ centerX, centerY, padding 5, spacing 5 ]
-            [ h1 [ centerX ] "Jack Glass"
-            , h2 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "A Curious Software Engineer"
-            , row [ centerX ]
-                [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
-                , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
 
-                -- todo: do something different with the email
-                -- maybe have it copy to clipboard?
-                , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
+
+splashScreen : Model -> Html.Html msg
+splashScreen model =
+    Html.div
+        [ Attr.style "min-height" "100vh"
+        , Attr.style "min-width" "100vw"
+        , Attr.style "display" "flex"
+        , Attr.style "justify-content" "center"
+        , Attr.style "align-content" "center"
+        ]
+        [ Html.div
+            [ Attr.style "z-index" "-1"
+            , Attr.style "position" "absolute"
+            , Attr.style "display" "block"
+            ]
+            [ TiledLines.view model.drawingModel ]
+        , Html.div
+            [ Attr.style "z-index" "auto"
+            , Attr.style "justify-content" "center"
+            , Attr.style "align-content" "center"
+            ]
+            [ Html.div
+                [ Attr.style "border" ("solid " ++ colorToCssRgb Theme.theme.highlightHigh)
+                , Attr.style "border-radius" "3ch"
+                , Attr.style "padding" "2ch"
+                , Attr.style "background-color" (colorToCssRgb Theme.theme.base)
+                , Attr.style "font-size" "1.5rem"
+                ]
+                [ Html.h1 [ Attr.style "text-align" "center" ] [ Html.text "Jack Glass" ]
+                , Html.div
+                    [ Attr.style "display" "flex"
+                    , Attr.style "justify-content" "space-around"
+                    , Attr.style "width" "100%"
+                    ]
+                    [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
+                    , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
+
+                    -- todo: do something different with the email
+                    -- maybe have it copy to clipboard?
+                    , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
+                    ]
                 ]
             ]
+        ]
 
 
 about =
@@ -127,7 +135,7 @@ about =
         [ Html.img [ Attr.class "card-img", Attr.src "headshot.jpeg" ] [ Html.text "Jack's Beautiful Face" ]
         , Html.div [ Attr.class "card-content" ]
             [ Html.h1 [] [ Html.text "About" ]
-            , Html.p [] [Html.text Util.fillerParagraph ]
+            , Html.p [] [ Html.text Util.fillerParagraph ]
             ]
         ]
 
@@ -148,11 +156,9 @@ view model =
         ]
     <|
         column [ width fill, spacing 30 ]
-            [ splashScreen model
-            , html ( Html.hr [] [] )
+            [ html (splashScreen model)
+            , html (Html.hr [] [])
             , html about
-            , h1 [ centerX, Font.center ] "more icecream please!"
-            , textColumn [ centerX ] <| List.repeat 10 (paragraph [] [ text Util.fillerParagraph ])
             ]
 
 

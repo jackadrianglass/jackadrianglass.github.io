@@ -8,6 +8,14 @@
 	*/
 }
 
+:root {
+  --primary-font: 'Roboto', Arial, sans-serif;
+}
+
+* {
+  font-family: var(--primary-font);
+}
+
 .card {
 	display: flex;
 

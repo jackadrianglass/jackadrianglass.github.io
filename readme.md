@@ -38,6 +38,7 @@ The idea is to largely base the website off of one that I found
         - [ ] Platform team
         - [ ] Martian team
         - [ ] Devops team
+    - [ ] Big Geo!!!
     - Reverse chronological order
 - [ ] Side Projects
     - [ ] Cards for each
@@ -61,3 +62,18 @@ The idea is to largely base the website off of one that I found
     - [x] Make it the splash screen of the main page
     - [x] Handle resize events (which probably just means redraw it?)
 - [ ] Find some other creative coding ideas to work on
+
+# Notes
+
+## Theming and CSS
+
+Most themes are based on some CSS variables that change when you set a particular
+class or attribute on an element. Then everything else responds to that particular
+change.
+
+[Reference for design thoughts](https://www.youtube.com/watch?v=JbxKTBvSLeY)
+
+So building this out will be to create
+- Some basic design tokens
+- Basic design components that reference the design tokens
+- Build the pages out of the components
