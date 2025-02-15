@@ -2,11 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Browser.Events as Events
-import Color as C
 import Color.Convert exposing (colorToCssRgb)
-import Element exposing (..)
-import Element.Background as Background
-import Element.Font as Font
 import FeatherIcons as Icons
 import Html exposing (Html)
 import Html.Attributes as Attr
@@ -79,7 +75,7 @@ linkTreeIcon : Icons.Icon -> String -> Html.Html msg
 linkTreeIcon icon url =
     Html.a [ Attr.href url ]
         [ icon
-            |> Icons.withSize 2
+            |> Icons.withSize 1.5
             |> Icons.withSizeUnit "em"
             |> Icons.toHtml [ Attr.style "color" (colorToCssRgb Theme.theme.rose) ]
         ]
@@ -88,23 +84,9 @@ linkTreeIcon icon url =
 splashScreen : Model -> Html.Html msg
 splashScreen model =
     Html.div
-        [ Attr.style "min-height" "100vh"
-        , Attr.style "min-width" "100vw"
-        , Attr.style "display" "flex"
-        , Attr.style "justify-content" "center"
-        , Attr.style "align-content" "center"
-        ]
-        [ Html.div
-            [ Attr.style "z-index" "-1"
-            , Attr.style "position" "absolute"
-            , Attr.style "display" "block"
-            ]
-            [ TiledLines.view model.drawingModel ]
-        , Html.div
-            [ Attr.style "z-index" "auto"
-            , Attr.style "justify-content" "center"
-            , Attr.style "align-content" "center"
-            ]
+        [ Attr.class "splash-screen" ]
+        [ Html.div [ Attr.class "splash-screen-background" ] [ TiledLines.view model.drawingModel ]
+        , Html.div [ Attr.class "splash-screen-foreground" ]
             [ Html.div
                 [ Attr.style "border" ("solid " ++ colorToCssRgb Theme.theme.highlightHigh)
                 , Attr.style "border-radius" "3ch"
@@ -112,7 +94,9 @@ splashScreen model =
                 , Attr.style "background-color" (colorToCssRgb Theme.theme.base)
                 , Attr.style "font-size" "1.5rem"
                 ]
-                [ Html.h1 [ Attr.style "text-align" "center" ] [ Html.text "Jack Glass" ]
+                [ Html.h1 [
+                    Attr.style "text-align" "center"
+                    , Attr.style "margin-top" "0.5rem"] [ Html.text "Jack Glass" ]
                 , Html.div
                     [ Attr.style "display" "flex"
                     , Attr.style "justify-content" "space-around"
@@ -142,23 +126,9 @@ about =
 
 view : Model -> Html msg
 view model =
-    layout
-        -- todo: Add a switch from light mode to dark mode
-        [ Font.color <| fromRgb <| C.toRgba Theme.theme.text
-        , Font.size 18
-
-        -- todo: Tinker with the font
-        , Font.family
-            [ Font.typeface "Open Sans"
-            , Font.sansSerif
-            ]
-        , Background.color <| fromRgb <| C.toRgba Theme.theme.base
-        ]
-    <|
-        column [ width fill, spacing 30 ]
-            [ html (splashScreen model)
-            , html (Html.hr [] [])
-            , html about
+    Html.div [ ]
+            [ (splashScreen model)
+            , about
             ]
 
 

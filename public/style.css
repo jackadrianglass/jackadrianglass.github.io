@@ -1,3 +1,86 @@
+/*************************************************
+* Themes & Props
+**************************************************/
+
+@media screen and (prefers-color-scheme: light) {
+
+	:root {
+		--rp-base: #faf4ed;
+		--rp-surface: #fffaf3;
+		--rp-overlay: #f2e9e1;
+		--rp-muted: #9893a5;
+		--rp-subtle: #797593;
+		--rp-text: #575279;
+		--rp-love: #b4637a;
+		--rp-gold: #ea9d34;
+		--rp-rose: #d7827e;
+		--rp-iris: #907aa9;
+		--rp-pine: #286983;
+		--rp-foam: #56949f;
+		--rp-highlightLow: #f4ede8;
+		--rp-highlightMed: #dfdad9;
+		--rp-highlightHigh: #cecacd;
+	}
+
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--rp-base: #191724;
+		--rp-surface: #1f1d2e;
+		--rp-overlay: #26233a;
+		--rp-muted: #6e6a86;
+		--rp-subtle: #908caa;
+		--rp-text: #e0def4;
+		--rp-love: #eb6f92;
+		--rp-gold: #f6c177;
+		--rp-rose: #ebbcba;
+		--rp-iris: #c4a7e7;
+		--rp-pine: #31748f;
+		--rp-foam: #9ccfd8;
+		--rp-highlightLow: #21202e;
+		--rp-highlightMed: #403d52;
+		--rp-highlightHigh: #524f67;
+	}
+
+}
+
+:root {
+	--primary-font: 'Roboto', Arial, sans-serif;
+
+	--background-primary: var(--rp-base);
+	--background-secondary: var(--rp-base);
+	--background-accent: var(--rp-base);
+	--background-modifier-border: var(--rp-highlightMed);
+	--background-modifier-form-field: rgba(0, 0, 0, 0.2);
+	--background-modifier-form-field-highlighted: rgba(0, 0, 0, 0.5);
+	--background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
+	--background-modifier-success: var(--rp-pine);
+
+	--background-modifier-error: var(--rp-love);
+	--background-modifier-error-hover: var(--rp-love);
+	--background-modifier-cover: rgba(0, 0, 0, 0.6);
+	--text-accent: var(--rp-accent);
+	--text-accent-hover: var(--rp-accent);
+	--text-normal: var(--rp-text);
+	--text-muted: var(--rp-muted);
+	--text-faint: var(--rp-accent);
+	--text-highlight-bg: var(--rp-highlightLow);
+	--text-error: var(--rp-love);
+	--text-error-hover: var(--rp-love);
+	--text-selection: var(--rp-highlightHigh);
+
+	--text-on-accent: var(--rp-accent);
+	--interactive-normal: var(--rp-overlay);
+	--interactive-hover: var(--rp-highlightLow);
+	--interactive-accent: var(--rp-highlightLow);
+	--interactive-accent-active: var(--rp-accent);
+	--interactive-accent-hover: var(--rp-accent);
+	--scrollbar-active-thumb-bg: var(--rp-overlay);
+	--scrollbar-bg: var(--rp-overlay);
+	--scrollbar-thumb-bg: var(--rp-overlay);
+}
+
 *,
 *::before,
 *::after {
@@ -8,13 +91,22 @@
 	*/
 }
 
-:root {
-  --primary-font: 'Roboto', Arial, sans-serif;
+* {
+	font-family: var(--primary-font);
 }
 
-* {
-  font-family: var(--primary-font);
+h1, h2, h3, h4, h5, h6, p {
+	color: var(--text-normal);
 }
+
+body {
+	background-color: var(--background-primary);
+	margin: 0;
+}
+
+/*************************************************
+* Card Element
+**************************************************/
 
 .card {
 	display: flex;
@@ -46,4 +138,32 @@ probably will need to do a media query to change the style based on size of the 
 	object-fit: contain;
 	aspect-ratio: 1/1;
 	max-width: 20ch;
+}
+
+/*************************************************
+* Splash Screen Element
+**************************************************/
+
+.splash-screen {
+	min-height: 100vh;
+	min-width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.splash-screen-background {
+	z-index: -1;
+	position: absolute;
+	display: block;
+}
+
+.splash-screen-foreground {
+	z-index: auto;
+	justify-content: center;
+	align-content: center;
+}
+
+.splash-screen-box {
+	border: solid --theme-highlight-high
 }
