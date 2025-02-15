@@ -2,7 +2,6 @@ module Main exposing (main)
 
 import Browser
 import Browser.Events as Events
-import Color.Convert exposing (colorToCssRgb)
 import FeatherIcons as Icons
 import Html exposing (Html)
 import Html.Attributes as Attr
@@ -103,22 +102,53 @@ splashScreen model =
         ]
 
 
+about : Html msg
 about =
     Html.div [ Attr.class "card" ]
-        [ Html.img [ Attr.class "card-img", Attr.src "headshot.jpeg" ] [ Html.text "Jack's Beautiful Face" ]
-        , Html.div [ Attr.class "card-content" ]
+        [ Html.div [ Attr.class "card-content" ]
             [ Html.h1 [] [ Html.text "About" ]
-            , Html.p [] [ Html.text Util.fillerParagraph ]
+            , Html.p []
+                [ Html.text
+                    """
+I’m a Calgary-based software engineer with 6+ years of development experience
+building applications ranging from embedded systems programming on a cycling dynamics
+pedal, to distributed backend development for high performance geospatial computation.
+My work has involved many languages and libraries including
+"""
+                ]
+            , Html.br [] []
+            , Html.ul []
+                -- todo: Ideally I'd like some iconography for the technologies that I've used but this is good enough for now
+                [ Html.li [] [ Html.text "Rust, Axum, and protobuf for backend web development" ]
+                , Html.li [] [ Html.text "C++ and Qt for gui application development" ]
+                , Html.li [] [ Html.text "Python and FastApi for distributed computation" ]
+                , Html.li [] [ Html.text "Devops tooling including Bazel, Waf, Python, Bash, Powershell, Docker, Jenkins, etc." ]
+                , Html.li [] [ Html.text "C, ANT and BLE for low resource embedded systems" ]
+                ]
+            , Html.br [] []
+            , Html.p [] [ Html.text """
+I'm also actively involved in the Calgary software community. I host a weekly coworking
+session as a recurring space for folks to work on their side projects. I'm also involved
+with the Software Developers of Calgary group helping host a monthly meetup to help working
+developers hone their craft.
+            """ ]
             ]
+        , Html.img
+            [ Attr.class "card-img"
+            , Attr.src "headshot.png"
+            ]
+            [ Html.text "Jack's Beautiful Face" ]
         ]
 
 
 view : Model -> Html msg
 view model =
-    Html.div [ ]
-            [ (splashScreen model)
-            , about
-            ]
+    Html.div []
+        [ splashScreen model
+        , Html.br [] []
+        , Html.br [] []
+        , about
+        ]
 
 
 

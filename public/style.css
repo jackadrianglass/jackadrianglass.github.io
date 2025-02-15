@@ -49,36 +49,17 @@
 	--primary-font: 'Roboto', Arial, sans-serif;
 
 	--background-primary: var(--rp-base);
-	--background-secondary: var(--rp-base);
+	--background-secondary: var(--rp-surface);
 	--background-accent: var(--rp-base);
-	--background-modifier-border: var(--rp-highlightHigh);
-	--background-modifier-form-field: rgba(0, 0, 0, 0.2);
-	--background-modifier-form-field-highlighted: rgba(0, 0, 0, 0.5);
-	--background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
-	--background-modifier-success: var(--rp-pine);
 
-	--background-modifier-error: var(--rp-love);
-	--background-modifier-error-hover: var(--rp-love);
-	--background-modifier-cover: rgba(0, 0, 0, 0.6);
-	--text-accent: var(--rp-rose);
-	--text-accent-hover: var(--rp-rose);
+	--border-primary: var(--rp-highlightHigh);
+	--border-secondary: var(--rp-highlightMed);
+	--border-accent: var(--rp-subtle);
+
 	--text-normal: var(--rp-text);
+	--text-accent: var(--rp-rose);
 	--text-muted: var(--rp-muted);
 	--text-faint: var(--rp-rose);
-	--text-highlight-bg: var(--rp-highlightLow);
-	--text-error: var(--rp-love);
-	--text-error-hover: var(--rp-love);
-	--text-selection: var(--rp-highlightHigh);
-
-	--text-on-accent: var(--rp-rose);
-	--interactive-normal: var(--rp-overlay);
-	--interactive-hover: var(--rp-highlightLow);
-	--interactive-accent: var(--rp-highlightLow);
-	--interactive-accent-active: var(--rp-rose);
-	--interactive-accent-hover: var(--rp-rose);
-	--scrollbar-active-thumb-bg: var(--rp-overlay);
-	--scrollbar-bg: var(--rp-overlay);
-	--scrollbar-thumb-bg: var(--rp-overlay);
 }
 
 *,
@@ -95,7 +76,7 @@
 	font-family: var(--primary-font);
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, li {
 	color: var(--text-normal);
 }
 
@@ -115,8 +96,6 @@ body {
 
 	margin: auto;
 	max-width: 120ch;
-	border: 2px solid white;
-	border-radius: 1em;
 	padding: 0.5em;
 	gap: 1rem;
 }
@@ -137,7 +116,11 @@ probably will need to do a media query to change the style based on size of the 
 */
 	object-fit: contain;
 	aspect-ratio: 1/1;
-	max-width: 20ch;
+	max-width: 40ch;
+	border: 2px solid;
+	border-color: var(--border-primary);
+	border-radius: 1em;
+	background-color: var(--background-secondary);
 }
 
 /*************************************************
@@ -165,7 +148,7 @@ probably will need to do a media query to change the style based on size of the 
 }
 
 .splash-screen-box {
-	border: solid var(--background-modifier-border);
+	border: solid var(--border-primary);
 	background-color: var(--background-primary);
 	border-radius: 3ch;
 	padding: 2ch;
