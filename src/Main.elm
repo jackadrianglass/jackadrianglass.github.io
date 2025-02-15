@@ -77,7 +77,8 @@ linkTreeIcon icon url =
         [ icon
             |> Icons.withSize 1.5
             |> Icons.withSizeUnit "em"
-            |> Icons.toHtml [ Attr.style "color" (colorToCssRgb Theme.theme.rose) ]
+            |> Icons.withClass "link-tree-icon"
+            |> Icons.toHtml []
         ]
 
 
@@ -87,21 +88,9 @@ splashScreen model =
         [ Attr.class "splash-screen" ]
         [ Html.div [ Attr.class "splash-screen-background" ] [ TiledLines.view model.drawingModel ]
         , Html.div [ Attr.class "splash-screen-foreground" ]
-            [ Html.div
-                [ Attr.style "border" ("solid " ++ colorToCssRgb Theme.theme.highlightHigh)
-                , Attr.style "border-radius" "3ch"
-                , Attr.style "padding" "2ch"
-                , Attr.style "background-color" (colorToCssRgb Theme.theme.base)
-                , Attr.style "font-size" "1.5rem"
-                ]
-                [ Html.h1 [
-                    Attr.style "text-align" "center"
-                    , Attr.style "margin-top" "0.5rem"] [ Html.text "Jack Glass" ]
-                , Html.div
-                    [ Attr.style "display" "flex"
-                    , Attr.style "justify-content" "space-around"
-                    , Attr.style "width" "100%"
-                    ]
+            [ Html.div [ Attr.class "splash-screen-box" ]
+                [ Html.h1 [] [ Html.text "Jack Glass" ]
+                , Html.div [ Attr.class "splash-screen-linktree" ]
                     [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
                     , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
 

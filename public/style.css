@@ -51,7 +51,7 @@
 	--background-primary: var(--rp-base);
 	--background-secondary: var(--rp-base);
 	--background-accent: var(--rp-base);
-	--background-modifier-border: var(--rp-highlightMed);
+	--background-modifier-border: var(--rp-highlightHigh);
 	--background-modifier-form-field: rgba(0, 0, 0, 0.2);
 	--background-modifier-form-field-highlighted: rgba(0, 0, 0, 0.5);
 	--background-modifier-box-shadow: rgba(0, 0, 0, 0.3);
@@ -60,22 +60,22 @@
 	--background-modifier-error: var(--rp-love);
 	--background-modifier-error-hover: var(--rp-love);
 	--background-modifier-cover: rgba(0, 0, 0, 0.6);
-	--text-accent: var(--rp-accent);
-	--text-accent-hover: var(--rp-accent);
+	--text-accent: var(--rp-rose);
+	--text-accent-hover: var(--rp-rose);
 	--text-normal: var(--rp-text);
 	--text-muted: var(--rp-muted);
-	--text-faint: var(--rp-accent);
+	--text-faint: var(--rp-rose);
 	--text-highlight-bg: var(--rp-highlightLow);
 	--text-error: var(--rp-love);
 	--text-error-hover: var(--rp-love);
 	--text-selection: var(--rp-highlightHigh);
 
-	--text-on-accent: var(--rp-accent);
+	--text-on-accent: var(--rp-rose);
 	--interactive-normal: var(--rp-overlay);
 	--interactive-hover: var(--rp-highlightLow);
 	--interactive-accent: var(--rp-highlightLow);
-	--interactive-accent-active: var(--rp-accent);
-	--interactive-accent-hover: var(--rp-accent);
+	--interactive-accent-active: var(--rp-rose);
+	--interactive-accent-hover: var(--rp-rose);
 	--scrollbar-active-thumb-bg: var(--rp-overlay);
 	--scrollbar-bg: var(--rp-overlay);
 	--scrollbar-thumb-bg: var(--rp-overlay);
@@ -165,5 +165,28 @@ probably will need to do a media query to change the style based on size of the 
 }
 
 .splash-screen-box {
-	border: solid --theme-highlight-high
+	border: solid var(--background-modifier-border);
+	background-color: var(--background-primary);
+	border-radius: 3ch;
+	padding: 2ch;
+	font-size: 1.5rem;
 }
+
+.splash-screen-box h1 {
+	text-align: center;
+	margin-top: 0.5rem;
+}
+
+.splash-screen-linktree {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.link-tree-icon {
+	color: var(--text-accent);
+}
+
+/*************************************************
+* todo
+**************************************************/
