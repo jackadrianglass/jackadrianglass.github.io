@@ -13,8 +13,8 @@ import Canvas exposing (..)
 import Canvas.Settings exposing (..)
 import Canvas.Settings.Line exposing (lineWidth)
 import Color
-import Html exposing (Html)
 import Random
+import Html exposing (Html)
 
 
 
@@ -89,6 +89,7 @@ lineStep loc length direction =
     line start end
 
 
+view : Model -> Html msg
 view model =
     let
         canvasElements =

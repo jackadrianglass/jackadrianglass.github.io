@@ -8,7 +8,6 @@ import Html.Attributes as Attr
 import Random
 import Theme
 import TiledLines
-import Util
 
 
 
