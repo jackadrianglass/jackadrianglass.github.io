@@ -10,19 +10,18 @@ The idea is to largely base the website off of one that I found
 
 # Main Page
 
-- [ ] Port all of the elm-ui stuff to just CSS (just learn it. elm-ui is just a little too limiting)
+- [x] Port all of the elm-ui stuff to just CSS (just learn it. elm-ui is just a little too limiting)
 
 - [x] Creative Coding Splash Screen
 - [ ] Link Tree
-    - [ ] Have each link be little bubbles
+    - [x] Have each link be little bubbles
     - [ ] Each bubble should react when the user hovers over it
-    - [ ] Your name should be the most prominent thing
-    - [ ] Investigate which font you want to use
-- [ ] Brief Section
-    - [ ] Head Shot
-    - [ ] About Yourself
-    - [ ] Contact Information (should be covered by your link tree. Maybe the redundancy is useful)
-- [ ] Skill List
+    - [x] Your name should be the most prominent thing
+    - [x] Investigate which font you want to use
+- [x] Brief Section
+    - [x] Head Shot
+    - [x] About Yourself
+- [x] Skill List
     - Split by technology
     - Probably have some images around each technology used
     - Brief description of the projects involved
@@ -38,6 +37,7 @@ The idea is to largely base the website off of one that I found
         - [ ] Platform team
         - [ ] Martian team
         - [ ] Devops team
+    - [ ] Big Geo!!!
     - Reverse chronological order
 - [ ] Side Projects
     - [ ] Cards for each
@@ -61,3 +61,18 @@ The idea is to largely base the website off of one that I found
     - [x] Make it the splash screen of the main page
     - [x] Handle resize events (which probably just means redraw it?)
 - [ ] Find some other creative coding ideas to work on
+
+# Notes
+
+## Theming and CSS
+
+Most themes are based on some CSS variables that change when you set a particular
+class or attribute on an element. Then everything else responds to that particular
+change.
+
+[Reference for design thoughts](https://www.youtube.com/watch?v=JbxKTBvSLeY)
+
+So building this out will be to create
+- Some basic design tokens
+- Basic design components that reference the design tokens
+- Build the pages out of the components

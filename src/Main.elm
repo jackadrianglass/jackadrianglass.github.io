@@ -2,17 +2,12 @@ module Main exposing (main)
 
 import Browser
 import Browser.Events as Events
-import Color as C
-import Element exposing (..)
-import Element.Background as Background
-import Element.Font as Font
 import FeatherIcons as Icons
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Random
 import Theme
 import TiledLines
-import Util
 
 
 
@@ -25,7 +20,15 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Events.onResize (\width height -> WindowResized { width = toFloat width, height = toFloat height })
+        , subscriptions =
+            \_ ->
+                Events.onResize
+                    (\width height ->
+                        WindowResized
+                            { width = toFloat width
+                            , height = toFloat height
+                            }
+                    )
         }
 
 
@@ -66,79 +69,181 @@ init flags =
 -- View --
 
 
-linkTreeIcon : Icons.Icon -> String -> Element msg
-linkTreeIcon icon url =
-    link []
-        { url = url
-        , label =
-            icon
-                |> Icons.withSize 30
-                |> Icons.toHtml []
-                |> html
-        }
-
-
--- todo: Honestly, I'm tinkering enough with things that require CSS that I should just actually go learn CSS
-h1 : List (Attr () msg) -> String -> Element msg
-h1 attributes content =
-    el (attributes ++ [ Font.size 60, Font.heavy ]) (text content)
-
-
-h2 : List (Attr () msg) -> String -> Element msg
-h2 attributes content =
-    el (attributes ++ [ Font.size 40, Font.heavy ]) (text content)
-
-
-splashScreen : Model -> Element msg
-splashScreen model =
-    el
-        [ width fill
-        , htmlAttribute <| Attr.style "min-height" "100vh"
-        , behindContent <| el [ height fill, width fill ] <| Element.html <| TiledLines.view model.drawingModel
-        ]
-    <|
-        column [ centerX, centerY, padding 5, spacing 5 ]
-            [ h1 [ centerX ] "Jack Glass"
-            , h2 [ centerX, Font.color <| fromRgb <| C.toRgba Theme.theme.pine ] "A Curious Software Engineer"
-            , row [ centerX ]
-                [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
-                , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
-
-                -- todo: do something different with the email
-                -- maybe have it copy to clipboard?
-                , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
-                ]
-            ]
-
-
-about =
-    column [ width fill, centerX ]
-        [ h1 [ centerX, Font.center ] "About"
-        , image [width <| px 150] { src = "ferris.svg", description = "placeholder for an actual thing" }
-        ]
-
-
 view : Model -> Html msg
 view model =
-    layout
-        -- todo: Add a switch from light mode to dark mode
-        [ Font.color <| fromRgb <| C.toRgba Theme.theme.text
-        , Font.size 18
-
-        -- todo: Tinker with the font
-        , Font.family
-            [ Font.typeface "Open Sans"
-            , Font.sansSerif
-            ]
-        , Background.color <| fromRgb <| C.toRgba Theme.theme.base
+    Html.div []
+        [ splashScreen model
+        , Html.br [] []
+        , Html.br [] []
+        , about
+        , Html.br [] []
+        , Html.br [] []
+        , skills
         ]
-    <|
-        column [ width fill, spacing 30 ]
-            [ splashScreen model
-            , about
-            , h1 [ centerX, Font.center ] "more icecream please!"
-            , textColumn [ centerX ] <| List.repeat 10 (paragraph [] [ text Util.fillerParagraph ])
+
+
+linkTreeIcon : Icons.Icon -> String -> Html.Html msg
+linkTreeIcon icon url =
+    Html.a [ Attr.href url ]
+        [ icon
+            |> Icons.withSize 1.5
+            |> Icons.withSizeUnit "em"
+            |> Icons.withClass "link-tree-icon"
+            |> Icons.toHtml []
+        ]
+
+
+splashScreen : Model -> Html.Html msg
+splashScreen model =
+    Html.div
+        [ Attr.class "splash-screen" ]
+        [ Html.div [ Attr.class "splash-screen-background" ] [ TiledLines.view model.drawingModel ]
+        , Html.div [ Attr.class "splash-screen-foreground" ]
+            [ Html.div [ Attr.class "splash-screen-box" ]
+                [ Html.h1 [] [ Html.text "Jack Glass" ]
+                , Html.div [ Attr.class "splash-screen-linktree" ]
+                    [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
+                    , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
+
+                    -- todo: do something different with the email
+                    -- maybe have it copy to clipboard?
+                    , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
+                    ]
+                ]
             ]
+        ]
+
+
+about : Html msg
+about =
+    Html.div [ Attr.class "card" ]
+        [ Html.div [ Attr.class "card-content" ]
+            [ Html.h1 [] [ Html.text "About" ]
+            , Html.p []
+                [ Html.text
+                    """
+I’m a Calgary-based software engineer with 6+ years of development experience
+building applications ranging from embedded systems programming on a cycling dynamics
+pedal, to distributed backend development for high performance geospatial computation.
+My work has involved many languages and libraries including
+"""
+                ]
+            , Html.ul []
+                -- todo: Ideally I'd like some iconography for the technologies that I've used but this is good enough for now
+                [ Html.li [] [ Html.text "Rust, Axum, and protobuf for backend web development" ]
+                , Html.li [] [ Html.text "C++ and Qt for gui application development" ]
+                , Html.li [] [ Html.text "Python and FastApi for distributed computation" ]
+                , Html.li [] [ Html.text "Devops tooling including Bazel, Waf, Python, Bash, Powershell, Docker, Jenkins, etc." ]
+                , Html.li [] [ Html.text "C, ANT and BLE for low resource embedded systems" ]
+                ]
+            , Html.p [] [ Html.text """
+I'm also actively involved in the Calgary software community. I host a weekly coworking
+session as a recurring space for folks to work on their side projects. I'm also involved
+with the Software Developers of Calgary group helping host a monthly meetup to help working
+developers hone their craft.
+            """ ]
+            ]
+        , Html.img
+            [ Attr.class "card-img"
+            , Attr.src "headshot.png"
+            ]
+            [ Html.text "Jack's Beautiful Face" ]
+        ]
+
+
+skills : Html msg
+skills =
+    Html.div [ Attr.class "skill-tree" ]
+        [ Html.h1 [] [ Html.text "Languages, Tools & Frameworks" ]
+        , Html.div [ Attr.class "skill-tree-row" ]
+            [ Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Professional Experience" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-rust-original" ] [] ]
+                        , Html.p [] [ Html.text "Rust for high performance web backend" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-cplusplus-plain" ] [] ]
+                        , Html.p [] [ Html.text "C++ & Qt for GUI application development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-python-plain" ] [] ]
+                        , Html.p [] [ Html.text "Python for distributed computing & infrastructure" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-embeddedc-plain" ] [] ]
+                        , Html.p [] [ Html.text "C for resource constrained embedded systems" ]
+                        ]
+                    ]
+                ]
+            , Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Devops" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-docker-plain" ] [] ]
+                        , Html.p [] [ Html.text "Docker for deployment and development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-poetry-plain" ] [] ]
+                        , Html.p [] [ Html.text "Poetry for environment management and caching" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-jenkins-line" ] [] ]
+                        , Html.p [] [ Html.text "Jenkins for CI" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-gitlab-plain" ] [] ]
+                        , Html.p [] [ Html.text "Gitlab & Github for primary development platforms" ]
+                        ]
+                    ]
+                ]
+            ]
+        , Html.div [ Attr.class "skill-tree-row" ]
+            [ Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Hobby Projects" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-elm-plain" ] [] ]
+                        , Html.p [] [ Html.text "Elm for web front-end development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-haskell-plain" ] [] ]
+                        , Html.p [] [ Html.text "Haskell to dive deep into functional programming" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-opengl-plain" ] [] ]
+                        , Html.p [] [ Html.text "OpenGL, WGPU & Rust to learn graphics programming" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-markdown-original" ] [] ]
+                        , Html.p [] [ Html.text "Building a second brain, presentations and notes" ]
+                        ]
+                    ]
+                ]
+            , Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Daily Tools" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-neovim-plain" ] [] ]
+                        , Html.p [] [ Html.text "Neovim for editing most text" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-linux-plain" ] [] ]
+                        , Html.p [] [ Html.text "Linux as primary development OS" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-bash-plain" ] [] ]
+                        , Html.p [] [ Html.text "Nushell for command piping shenanigans" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-firefox-plain" ] [] ]
+                        , Html.p [] [ Html.text "Firefox to surf the web. Support browser diversity!" ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
 
 
 
