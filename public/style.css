@@ -85,6 +85,10 @@ body {
 	margin: 0;
 }
 
+.container {
+	display: flex;
+}
+
 /*************************************************
 * Card Element
 **************************************************/
@@ -107,6 +111,9 @@ body {
 .card-content {
 	max-width: 75ch;
 	white-space: normal;
+	gap: 1rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .card-img {
@@ -171,5 +178,66 @@ probably will need to do a media query to change the style based on size of the 
 }
 
 /*************************************************
-* todo
+* Skill Tree
 **************************************************/
+
+.skill-tree {
+	display: flex;
+	flex-direction: column;
+
+	margin: auto;
+	max-width: 120ch;
+	padding: 0.5em;
+	gap: 1rem;
+}
+
+.skill-tree-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	gap: 1rem;
+}
+
+.skill-tree-section {
+	border: solid var(--border-primary);
+	background-color: var(--background-secondary);
+	border-radius: 3ch;
+	padding: 1ch;
+	width: 40%;
+}
+
+skill-tree-section:first-child {
+	margin-top: 0;
+}
+
+skill-tree-section:last-child {
+	margin-bottom: 0;
+}
+
+.skill-tree h1 {
+	align-self: center;
+}
+
+.skill-tree i {
+	color: var(--text-accent);
+	font-size: 2rem;
+}
+
+.skill-tree ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.skill-tree li {
+	display: flex;
+	flex-direction: row;
+	gap: 1rem;
+}
+
+.skill-tree a {
+	align-content: center;
+}
+
+
+

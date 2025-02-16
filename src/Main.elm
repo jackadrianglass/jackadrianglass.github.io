@@ -70,6 +70,19 @@ init flags =
 -- View --
 
 
+view : Model -> Html msg
+view model =
+    Html.div []
+        [ splashScreen model
+        , Html.br [] []
+        , Html.br [] []
+        , about
+        , Html.br [] []
+        , Html.br [] []
+        , skills
+        ]
+
+
 linkTreeIcon : Icons.Icon -> String -> Html.Html msg
 linkTreeIcon icon url =
     Html.a [ Attr.href url ]
@@ -116,7 +129,6 @@ pedal, to distributed backend development for high performance geospatial comput
 My work has involved many languages and libraries including
 """
                 ]
-            , Html.br [] []
             , Html.ul []
                 -- todo: Ideally I'd like some iconography for the technologies that I've used but this is good enough for now
                 [ Html.li [] [ Html.text "Rust, Axum, and protobuf for backend web development" ]
@@ -125,7 +137,6 @@ My work has involved many languages and libraries including
                 , Html.li [] [ Html.text "Devops tooling including Bazel, Waf, Python, Bash, Powershell, Docker, Jenkins, etc." ]
                 , Html.li [] [ Html.text "C, ANT and BLE for low resource embedded systems" ]
                 ]
-            , Html.br [] []
             , Html.p [] [ Html.text """
 I'm also actively involved in the Calgary software community. I host a weekly coworking
 session as a recurring space for folks to work on their side projects. I'm also involved
@@ -141,13 +152,98 @@ developers hone their craft.
         ]
 
 
-view : Model -> Html msg
-view model =
-    Html.div []
-        [ splashScreen model
-        , Html.br [] []
-        , Html.br [] []
-        , about
+skills : Html msg
+skills =
+    Html.div [ Attr.class "skill-tree" ]
+        [ Html.h1 [] [ Html.text "Languages, Tools & Frameworks" ]
+        , Html.div [ Attr.class "skill-tree-row" ]
+            [ Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Professional Experience" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-rust-original" ] [] ]
+                        , Html.p [] [ Html.text "Rust for high performance web backend" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-cplusplus-plain" ] [] ]
+                        , Html.p [] [ Html.text "C++ & Qt for GUI application development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-python-plain" ] [] ]
+                        , Html.p [] [ Html.text "Python for distributed computing & infrastructure" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-embeddedc-plain" ] [] ]
+                        , Html.p [] [ Html.text "C for resource constrained embedded systems" ]
+                        ]
+                    ]
+                ]
+            , Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Devops" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-docker-plain" ] [] ]
+                        , Html.p [] [ Html.text "Docker for deployment and development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-poetry-plain" ] [] ]
+                        , Html.p [] [ Html.text "Poetry for environment management and caching" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-jenkins-line" ] [] ]
+                        , Html.p [] [ Html.text "Jenkins for CI" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-gitlab-plain" ] [] ]
+                        , Html.p [] [ Html.text "Gitlab & Github for primary development platforms" ]
+                        ]
+                    ]
+                ]
+            ]
+        , Html.div [ Attr.class "skill-tree-row" ]
+            [ Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Hobby Projects" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-elm-plain" ] [] ]
+                        , Html.p [] [ Html.text "Elm for web front-end development" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-haskell-plain" ] [] ]
+                        , Html.p [] [ Html.text "Haskell to dive deep into functional programming" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-opengl-plain" ] [] ]
+                        , Html.p [] [ Html.text "OpenGL, WGPU & Rust to learn graphics programming" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-markdown-original" ] [] ]
+                        , Html.p [] [ Html.text "Building a second brain, presentations and notes" ]
+                        ]
+                    ]
+                ]
+            , Html.div [ Attr.class "skill-tree-section" ]
+                [ Html.h2 [] [ Html.text "Daily Tools" ]
+                , Html.ul []
+                    [ Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-neovim-plain" ] [] ]
+                        , Html.p [] [ Html.text "Neovim for editing most text" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-linux-plain" ] [] ]
+                        , Html.p [] [ Html.text "Linux as primary development OS" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-bash-plain" ] [] ]
+                        , Html.p [] [ Html.text "Nushell for command piping shenanigans" ]
+                        ]
+                    , Html.li []
+                        [ Html.a [] [ Html.i [ Attr.class "devicon-firefox-plain" ] [] ]
+                        , Html.p [] [ Html.text "Firefox to surf the web. Support browser diversity!" ]
+                        ]
+                    ]
+                ]
+            ]
         ]
 
 
