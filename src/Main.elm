@@ -104,10 +104,7 @@ splashScreen model =
                 , Html.div [ Attr.class "splash-screen-linktree" ]
                     [ linkTreeIcon Icons.github "https://github.com/jackadrianglass"
                     , linkTreeIcon Icons.linkedin "https://www.linkedin.com/in/jack-glass-561944129/"
-
-                    -- todo: do something different with the email
-                    -- maybe have it copy to clipboard?
-                    , linkTreeIcon Icons.mail "jackadrianglass@gmail.com"
+                    , linkTreeIcon Icons.mail "mailto:jackadrianglass@gmail.com"
                     ]
                 ]
             ]
