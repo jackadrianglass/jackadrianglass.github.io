@@ -5,5 +5,5 @@ def "nur make" [] {
 
 def "nur make-release" [] {
 	# There's probably an actual release flag
-	elm make src/Main.elm --output public/app.js --optimize
+	elm make src/Main.elm --output app.js --optimize
 }

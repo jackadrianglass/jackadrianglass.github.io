@@ -8059,7 +8059,7 @@ var $author$project$Main$splashScreen = function (model) {
 									[
 										A2($author$project$Main$linkTreeIcon, $1602$elm_feather$FeatherIcons$github, 'https://github.com/jackadrianglass'),
 										A2($author$project$Main$linkTreeIcon, $1602$elm_feather$FeatherIcons$linkedin, 'https://www.linkedin.com/in/jack-glass-561944129/'),
-										A2($author$project$Main$linkTreeIcon, $1602$elm_feather$FeatherIcons$mail, 'jackadrianglass@gmail.com')
+										A2($author$project$Main$linkTreeIcon, $1602$elm_feather$FeatherIcons$mail, 'mailto:jackadrianglass@gmail.com')
 									]))
 							]))
 					]))
