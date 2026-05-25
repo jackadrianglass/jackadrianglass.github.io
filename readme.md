@@ -7,13 +7,6 @@ The idea is to largely base the website off of one that I found
 
 # Ideas
 
-## Side project garden
-
-- [ ] List of each side project that you're working on sorted by recency
-- [ ] Link out to your side project repo
-- [ ] Build small demos of each project to showcase (ascii cinema or screen casts?)
-- [ ] Tech bubbles for things that are used (language, stack)
-
 ## Blog
 
 Goals
