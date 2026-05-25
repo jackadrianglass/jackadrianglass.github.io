@@ -4,6 +4,8 @@
 // Revised by [Darren Kessner](https://github.com/dkessner)
 // Edited and maintained by [p5.js Contributors](https://github.com/processing/p5.js?tab=readme-ov-file#contributors) and [Processing Foundation](https://processingfoundation.org/people)
 // Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+//
+// Modified by Jack Glass for his website
 let flock;
 
 function getWidgetSize() {
@@ -41,7 +43,7 @@ function setup() {
   flock = new Flock();
 
   // Add an initial set of boids into the system
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 120; i++) {
     let b = new Boid(width / 2, height / 2);
     flock.addBoid(b);
   }
@@ -68,13 +70,6 @@ function draw() {
 
 function windowResized() {
   resizeCanvasToWidget();
-}
-
-// On mouse drag, add a new boid to the flock
-function mouseDragged() {
-  if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
-    flock.addBoid(new Boid(mouseX, mouseY));
-  }
 }
 
 // Flock class to manage the array of all the boids

@@ -8,7 +8,9 @@ tags: ["Haskell", "OCaml", "Nim", "Crystal", "Scala", "Clojure", "Gleam", "Idris
 repo: https://github.com/jackadrianglass/side_projects/tree/master/challenges/aoc_2025
 ---
 
-https://adventofcode.com/
+Some folks might ask me "why?". Well I ask myself the same question. Originally, the challenge was to do the [advent of code](https://adventofcode.com/) in Elixir. But as I did the first challenge, I really found myself missing a static type system. Right around that time, I encountered [devenv.sh](https://devenv.sh/) which makes spinning up new environments for 50 programming languages super easy. I thought to myself "well this is a perfect time to try them all!". And so, here we are. I'm planning on blogging about this experience once I finish it (eventually)
+
+# Log
 
 Doing each day in a different language
 

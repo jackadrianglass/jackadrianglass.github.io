@@ -1,8 +1,8 @@
 ---
-title: Hello world
-description: A quick hello-world post to kick off the blog and verify the build pipeline works end-to-end.
+title: Hello World
+description: First post! We're talking about what I intend on doing with this website
 date: 2026-04-27 00:00:00
-tags: ["banana", "pancakes"]
+tags: ["meta"]
 ---
 
 # First post

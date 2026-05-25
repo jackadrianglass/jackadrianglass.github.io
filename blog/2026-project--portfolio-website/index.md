@@ -12,8 +12,8 @@ repo: "https://github.com/jackadrianglass/jackadrianglass.github.io"
 
 ## 2026-05-25
 
-- [ ] Add more projects to the website that you've been working on
 - [ ] First blog post
+- [x] Add more projects to the website that you've been working on
 - [x] CI/CD deployments of the website
 - [x] Deploy it! Do it live
 - [x] Add more content to the home page. It looks a little bare
