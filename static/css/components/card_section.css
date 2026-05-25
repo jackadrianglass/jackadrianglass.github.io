@@ -3,8 +3,6 @@
   border: 1px solid var(--pico-muted-border-color);
   border-radius: var(--pico-border-radius);
   padding: 1.25rem;
-  margin-left: 1.25rem;
-  margin-right: 1.25rem;
 }
 
 .c-card-section > :first-child {

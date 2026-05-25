@@ -45,17 +45,20 @@ pub fn template(p: Post(Nil), all_posts: List(Post(Nil))) -> Element(Nil) {
           html.h1([attribute.class("c-post-content__title")], [
             element.text(p.title),
           ]),
-          html.p([attribute.class("c-post-content__description")], [
-            html.em([], [element.text(p.description)]),
+          html.br([]),
+          html.div([attribute.class("c-card-section")], [
+            html.p([attribute.class("c-post-content__description")], [
+              html.em([], [element.text(p.description)]),
+            ]),
+            case dict.get(p.extras, "repo") {
+              Ok(url) ->
+                html.em([attribute.class("c-post-content__repo")], [
+                  element.text("Source: "),
+                  html.a([attribute.href(url)], [element.text(url)]),
+                ])
+              Error(_) -> element.none()
+            },
           ]),
-          case dict.get(p.extras, "repo") {
-            Ok(url) ->
-              html.p([attribute.class("c-post-content__repo")], [
-                element.text("Source code: "),
-                html.a([attribute.href(url)], [element.text(url)]),
-              ])
-            Error(_) -> element.none()
-          },
           html.div([attribute.class("c-post-content__body")], p.contents),
         ]),
       ]),

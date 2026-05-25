@@ -4,24 +4,24 @@ status: active
 title: Portfolio Website V1
 description: A little space to blog, show off my hobbies, and write into the void of the internet
 date: 2026-05-22 00:00:00
-tags: ["gleam", "p5.js", "pico.css"]
+tags: ["Gleam", "p5.js", "pico.css"]
 repo: "https://github.com/jackadrianglass/jackadrianglass.github.io"
 ---
-
-# TODO
-
-- [ ] First blog post
-- [ ] CI/CD deployments of the website
-- [ ] Deploy it! Do it live
 
 # Log
 
 ## 2026-05-25
 
+- [ ] Add more projects to the website that you've been working on
+- [ ] First blog post
+- [x] CI/CD deployments of the website
+- [x] Deploy it! Do it live
 - [x] Add more content to the home page. It looks a little bare
 - [x] Working status of the project + link if there is one
 - [x] Simplify the footer of the website
 - [x] Link tree on nav bar instead of basic navigation (top right)
+
+Devenv is awesome! It's super easy to get a CI pipeline going
 
 ## 2026-05-24
 

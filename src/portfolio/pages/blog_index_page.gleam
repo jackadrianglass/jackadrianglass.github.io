@@ -26,7 +26,7 @@ pub fn view(posts: List(Post(Nil))) -> Element(Nil) {
         html.h1([], [element.text("Musings of a Hobbyist")]),
         html.p([], [
           element.text(
-            "It's a blog! I'll be writing about all my hobbies, and some little ideas that I encounter at work. We're talking about coding (of course), learning music, thoughts about working out, probably a rant or two, and some responses to the content that I want online.",
+            "It's a blog! I'll be writing about all my hobbies, and some little ideas that I encounter at work. We're talking about coding (of course), learning music, thoughts about working out, probably a rant or two, and some responses to the content that I watch online.",
           ),
         ]),
         html.p([], [
