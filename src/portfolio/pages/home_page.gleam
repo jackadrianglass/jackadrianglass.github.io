@@ -62,6 +62,15 @@ fn hero() -> Element(Nil) {
         html.h1([], [element.text("Jack Glass")]),
       ]),
     ]),
+    html.a(
+      [
+        attr.class("c-home-hero__source"),
+        attr.href("https://beta.p5js.org/examples/classes-and-objects-flocking/"),
+        attr.target("_blank"),
+        attr.rel("noopener noreferrer"),
+      ],
+      [element.text("Sketch modified from this source")],
+    ),
   ])
 }
 

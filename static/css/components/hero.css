@@ -47,3 +47,19 @@
   width: 100%;
   height: 100%;
 }
+
+.c-home-hero__source {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 3;
+  font-size: 0.75rem;
+  color: var(--pico-muted-color);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.c-home-hero__source:hover {
+  opacity: 1;
+}
