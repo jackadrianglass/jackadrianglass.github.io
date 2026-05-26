@@ -36,6 +36,13 @@
   margin-bottom: 0.25rem;
 }
 
+.c-post-card__date {
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
 .c-post-card__tldr {
   color: var(--pico-muted-color);
   font-size: 0.95rem;
