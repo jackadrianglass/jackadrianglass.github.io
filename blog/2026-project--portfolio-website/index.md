@@ -1,6 +1,6 @@
 ---
 type: project
-status: active
+status: done
 title: Portfolio Website V1
 description: A little space to blog, show off my hobbies, and write into the void of the internet
 date: 2026-05-22 00:00:00
@@ -12,7 +12,7 @@ repo: "https://github.com/jackadrianglass/jackadrianglass.github.io"
 
 ## 2026-05-25
 
-- [ ] First blog post
+- [x] First blog post
 - [x] Add more projects to the website that you've been working on
 - [x] CI/CD deployments of the website
 - [x] Deploy it! Do it live
