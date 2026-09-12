@@ -1,6 +1,6 @@
 ---
 type: project
-status: active
+status: paused
 title: Course - Performance Aware Programming
 description: Learning more about how computers work so that I can write fast programs by default
 date: 2026-05-25 00:00:00
@@ -13,6 +13,14 @@ I listened to a lot of [the standup pod](https://thestanduppod.com/) where Casey
 Won't be writing notes here since it's a course. Will just keep the log
 
 # Log
+
+## 2026-05 to 2026-09
+
+Didn't work at all on this since
+a) I was pretty down because I lost my job
+b) I got a new job in July so I was really busy with that
+c) Whenever I did try to work on a side thing, I tried poking at the AoC 2025 challenge in 12 languages (which I'm 9 months late)
+d) I have other hobbies which occupied my time like learning guitar
 
 ## 2026-04
 

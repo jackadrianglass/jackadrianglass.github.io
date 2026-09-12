@@ -4,13 +4,15 @@ status: active
 title: Advent of Code in 12 languages
 description: Trying out a bunch of programming languages by writing each challenge in the advent of code in a different one. We're looking for a potential hobby language
 date: 2026-05-25 00:00:00
-tags: ["Haskell", "OCaml", "Nim", "Crystal", "Scala", "Clojure", "Gleam", "Idris", "Kotlin", "Swift", "Zig", "Roc"]
+tags: ["OCaml", "Haskell",  "Nim", "Crystal", "Scala", "Clojure", "Gleam", "Idris"]
 repo: https://github.com/jackadrianglass/side_projects/tree/master/challenges/aoc_2025
 ---
 
 Some folks might ask me "why?". Well I ask myself the same question. Originally, the challenge was to do the [advent of code](https://adventofcode.com/) in Elixir. But as I did the first challenge, I really found myself missing a static type system. Right around that time, I encountered [devenv.sh](https://devenv.sh/) which makes spinning up new environments for 50 programming languages super easy. I thought to myself "well this is a perfect time to try them all!". And so, here we are. I'm planning on blogging about this experience once I finish it (eventually)
 
 # Log
+
+https://adventofcode.com/
 
 Doing each day in a different language
 
@@ -21,11 +23,11 @@ Doing each day in a different language
 - [x] Day 5: Scala
 - [x] Day 6: Clojure
 - [x] Day 7: Gleam
-- [ ] Day 8: Idris
-- [ ] Day 9: Kotlin
-- [ ] Day 10: Swift
-- [ ] Day 11: Zig
-- [ ] Day 12: Roc
+- [x] Day 8: ~~Idris~~ OCaml
+- [ ] Day 9: ~~Kotlin~~  OCaml
+- [ ] Day 10: ~~Swift~~ OCaml
+- [ ] Day 11: ~~Zig~~ OCaml
+- [ ] Day 12: ~~Roc~~ OCaml
 
 Languages to maybe switch out with
 - https://vale.dev/
@@ -34,6 +36,8 @@ Languages to maybe switch out with
 - https://www.unison-lang.org/
 
 Why you might ask? Honestly just to see if any of them seem like a fun hobby language or if any of them really spark joy. So far my favorite is Rust.
+
+The more I work on this, the more I wonder why should I learn a new programming language. All the interesting things about a language seem to pop up when you're very competent with that language so long as the basics are nice. The less nice the basics, the harder the advance stuff become. Pure functional programming languages sound nice, but I don't think I'm willing to sift through the soup of symbols just to do the basics.
 
 # Haskell
 
@@ -137,3 +141,33 @@ Cons:
 - It seems like every type has to redefine the same functions (e.g. map, filter etc.)
 - The base operators for primitives are all different (adding floats is a different operator than ints)
 
+# Idris
+
+It's like Haskell, except with a fancier type system. But I feel extremely stupid when trying to program in it. I think that I'll just skip this one. It's not hitting anything that I'm excited about and I feel like I would need to know way more about formal verification to appreciate what this language is trying to do.
+
+Also, it doesn't really have stuff that I'd need to do my hobby projects and I'd to write everything myself
+
+# OCaml (round 2)
+
+My new job has a large code base written in OCaml so I'm extra incentivized to actually learn this language.
+
+The more that I work with OCaml, the more little things that I find myself actually liking about this language
+- It's really satisfying to solve a problem functionally (i.e. using map, filter, fold, persistent datastructures, etc.)
+- I'm more and more intruiged by the type system (in particular how modules and functors are used)
+- It's not so deep into category theory where I feel stupid when I read the compiler error (most of the time)
+- The docs are really nice to read
+
+Even the complaints that I had in the beginning seem to not matter anymore
+- There's `@@derive show` for records which makes it pretty easy to print things
+- I don't really even think about the single pass-ness of the compiler 99% of the time. It ends up just being like C (which I'm already used to)
+
+And the community values seem in line with what I care about
+- Good performance without extra ceremony
+- Good usability of the tools (build times, getting packages, nice compiler errors, good docs)
+- Functional by default until OOP solves the problem better
+- [this course is awesome!](https://cs3110.github.io/textbook/cover.html). I think that more introduction language books should be written like this (video + text + exercises)
+- For the love of learning!
+- For the love of programming!
+- For the love of making actual things!
+
+So I'm going to use OCaml for the rest of this challenge since the other languages in my list aren't nearly as interesting to me as OCaml has become (with the exception of Zig and Unison but I'll do that another time)

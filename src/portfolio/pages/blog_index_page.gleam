@@ -15,7 +15,7 @@ pub fn view(posts: List(Post(Nil))) -> Element(Nil) {
     |> list.sort(fn(a, b) { timestamp.compare(b.date, a.date) })
 
   html.html([attribute.lang("en")], [
-    html.head([], layout.page_head("Simple Blog")),
+    html.head([], layout.page_head("<3 of <stuff>")),
     html.body([attribute.class("page-blog-index")], [
       nav.top_nav(posts, [
         html.li([], [html.a([attribute.href("/")], [element.text("~")])]),
@@ -23,10 +23,10 @@ pub fn view(posts: List(Post(Nil))) -> Element(Nil) {
         html.li([], [html.strong([], [element.text("blog")])]),
       ]),
       html.main([attribute.class("l-content")], [
-        html.h1([], [element.text("Musings of a Hobbyist")]),
+        html.h1([], [element.text("For the love of <stuff>!")]),
         html.p([], [
           element.text(
-            "It's a blog! I'll be writing about all my hobbies, and some little ideas that I encounter at work. We're talking about coding (of course), learning music, thoughts about working out, probably a rant or two, and some responses to the content that I watch online.",
+            "It's a blog! I'll be writing about all my hobbies, and some little ideas that I encounter at work. We're talking about coding (of course), learning music, thoughts about working out, probably a rant or two, and some responses to the content that I watch online. All of which, I'm going from the angle of what I love about it or how it helps me love something else (or not in the case or little rants)",
           ),
         ]),
         html.p([], [
